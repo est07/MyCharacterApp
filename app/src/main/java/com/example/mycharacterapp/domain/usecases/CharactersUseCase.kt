@@ -1,9 +1,10 @@
 package com.example.mycharacterapp.domain.usecases
 
-import com.example.mycharacterapp.data.network.responses.CharactersResultsResponse
+import com.example.mycharacterapp.data.database.entities.toDomain
+import com.example.mycharacterapp.domain.models.CharacterModel
 import com.example.mycharacterapp.domain.repositories.CharactersRepository
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 
 class CharactersUseCase(
@@ -12,16 +13,28 @@ class CharactersUseCase(
 ) {
 
     suspend fun getCharactersList() = withContext(ioDispatcher) {
-        charactersRepository.getCharactersList()
+        charactersRepository.getCharacters().onEach { charactersList ->
+            charactersRepository.insertCharacters(charactersList.map { it.toDomain() })
+        }
     }
 
-    suspend fun insertCharactersList(characters: List<CharactersResultsResponse>) {}
+    suspend fun getAllCharactersDB() =
+        withContext(ioDispatcher) {
+            charactersRepository.getAllCharactersDB()
+        }
 
-    suspend fun getAllCharactersDB() {}
+    suspend fun createCharacters(character: CharacterModel) =
+        withContext(ioDispatcher) {
+            charactersRepository.createCharacter(character)
+        }
 
-    suspend fun createCharacters(character: CharactersResultsResponse) {}
+    suspend fun updateCharacters(character: CharacterModel) =
+        withContext(ioDispatcher) {
+            charactersRepository.updateCharacter(character)
+        }
 
-    suspend fun updateCharacters(character: CharactersResultsResponse) {}
-
-    suspend fun deleteCharacters(character: CharactersResultsResponse){}
+    suspend fun deleteCharacters(character: CharacterModel) =
+        withContext(ioDispatcher) {
+            charactersRepository.deleteCharacter(character)
+        }
 }

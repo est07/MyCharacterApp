@@ -30,7 +30,7 @@ class CharactersViewModel(
                     _characterListState.value = CharactersStates.Error
                 }
                 .collect {
-                    _characterListState.value = CharactersStates.Success(it)
+                    _characterListState.value = CharactersStates.Success
                 }
         }
     }

@@ -21,5 +21,3 @@ data class CharactersResultsResponse(
     @param:Json(name = "image")
     val image: String? = String()
 )
-
-
