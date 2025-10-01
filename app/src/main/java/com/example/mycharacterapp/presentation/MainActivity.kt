@@ -1,4 +1,4 @@
-package com.example.mycharacterapp
+package com.example.mycharacterapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,13 +11,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.mycharacterapp.ui.theme.MyCharacterAppTheme
+import com.example.mycharacterapp.presentation.ui.theme.MyCharacterAppTheme
+import com.example.mycharacterapp.presentation.viewmodels.CharactersViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
+
+    private val charactersViewModel: CharactersViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            charactersViewModel.getCharacters()
             MyCharacterAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
