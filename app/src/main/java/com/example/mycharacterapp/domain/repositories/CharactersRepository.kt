@@ -1,19 +1,20 @@
 package com.example.mycharacterapp.domain.repositories
 
-import com.example.mycharacterapp.data.network.responses.CharactersResultsResponse
+import com.example.mycharacterapp.data.database.entities.CharacterEntity
+import com.example.mycharacterapp.domain.models.CharacterModel
 import kotlinx.coroutines.flow.Flow
 
 interface CharactersRepository {
 
-    suspend fun getCharactersList(): Flow<List<CharactersResultsResponse>>
+    suspend fun getCharacters(): Flow<List<CharacterModel>>
 
-    suspend fun insertCharactersList(characters: List<CharactersResultsResponse>)
+    suspend fun insertCharacters(characters: List<CharacterEntity>)
 
-    suspend fun getAllCharactersDB(): List<CharactersResultsResponse>
+    fun getAllCharactersDB(): Flow<List<CharacterModel>>
 
-    suspend fun createCharacters(character: CharactersResultsResponse)
+    suspend fun createCharacter(character: CharacterModel)
 
-    suspend fun updateCharacters(character: CharactersResultsResponse)
+    suspend fun updateCharacter(character: CharacterModel)
 
-    suspend fun deleteCharacters(character: CharactersResultsResponse)
+    suspend fun deleteCharacter(character: CharacterModel)
 }

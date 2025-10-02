@@ -1,6 +1,7 @@
 package com.example.mycharacterapp.presentation
 
 import android.app.Application
+import com.example.mycharacterapp.presentation.di.databaseModule
 import com.example.mycharacterapp.presentation.di.repositoriesModule
 import com.example.mycharacterapp.presentation.di.serviceModule
 import com.example.mycharacterapp.presentation.di.useCasesModule
@@ -20,7 +21,8 @@ class MyCharactersApplication : Application() {
                     serviceModule,
                     repositoriesModule,
                     useCasesModule,
-                    viewModelModule
+                    viewModelModule,
+                    databaseModule
                 )
             )
         }
