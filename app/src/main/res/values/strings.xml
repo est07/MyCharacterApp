@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MyCharacterApp</string>
+
+    <string name="response_error.network_error">Network error</string>
+    <string name="response_error.btn_retry">Try again</string>
+    <string name="response_error.content_description.error_network_icon">"Error icon"</string>
+
+    <string name="character_item.status">Estatus: %1$s</string>
+    <string name="character_item.description">Genero: %1$s, Especie: %2$s</string>
+
+    <string name="characters_view.content_description.add_new_character">"Add new character"</string>
+    <string name="character_item.content_description.character.image">CharacterImage</string>
 </resources>
