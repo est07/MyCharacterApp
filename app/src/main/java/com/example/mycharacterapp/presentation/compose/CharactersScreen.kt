@@ -32,6 +32,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -71,8 +73,12 @@ fun CharactersRoute(
     charactersViewModel: CharactersViewModel = koinViewModel(),
     navigateToEdit : (CharacterModel) -> Unit
 ) {
+    val localCharacters by charactersViewModel.localCharacterState.collectAsState()
+
+    charactersViewModel.getLocalCharacters()
+
     CharactersScreen(
-        characterModel = charactersViewModel.characterList,
+        characterModel = localCharacters,
         navigateToEdit = navigateToEdit
     )
 }
@@ -80,7 +86,7 @@ fun CharactersRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharactersScreen(
-    characterModel: MutableList<CharacterModel>,
+    characterModel: List<CharacterModel>,
     navigateToEdit: (CharacterModel) -> Unit
 ) {
     Scaffold(
@@ -141,7 +147,7 @@ fun CharactersScreen(
 
 @Composable
 fun CitiesList(
-    characterModel: MutableList<CharacterModel>,
+    characterModel: List<CharacterModel>,
     navigateToEdit: (CharacterModel) -> Unit
 ) {
     val lazyColumnListState = rememberLazyListState()
