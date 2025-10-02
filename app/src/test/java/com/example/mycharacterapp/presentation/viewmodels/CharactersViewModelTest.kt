@@ -8,6 +8,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.confirmVerified
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
@@ -24,11 +25,13 @@ class CharactersViewModelTest {
 
     private val charactersUseCase = mockk<CharactersUseCase>()
 
+    private val ioDispatcher = Dispatchers.IO
+
     private lateinit var viewModel: CharactersViewModel
 
     @Before
     fun setUp() {
-        viewModel = CharactersViewModel(charactersUseCase)
+        viewModel = CharactersViewModel(charactersUseCase, ioDispatcher)
     }
 
     @Test
@@ -36,6 +39,14 @@ class CharactersViewModelTest {
         assertEquals(
             viewModel.charactersState.value,
             CharactersStates.Default
+        )
+    }
+
+    @Test
+    fun getLocalCharacterStateTest() = runBlocking {
+        assertEquals(
+            viewModel.localCharacterState.value,
+            emptyList<CharacterModel>()
         )
     }
 
@@ -94,6 +105,38 @@ class CharactersViewModelTest {
             charactersUseCase.getCharacters()
         }
         confirmVerified(charactersUseCase)
+    }
+
+    @Test
+    fun getLocalCharacters_success_response_test() = runTest {
+        val characters = listOf(
+            CharacterModel(
+                id = 1,
+                name = "name",
+                status = "status",
+                species = "species",
+                gender = "gender",
+                image = "image",
+                created = "created"
+            ),
+            CharacterModel(
+                id = 2,
+                name = "name2",
+                status = "status2",
+                species = "species2",
+                gender = "gender2",
+                image = "image2",
+                created = "created2"
+            )
+        )
+
+        coEvery {
+            charactersUseCase.getAllCharactersDB()
+        } returns flowOf(characters)
+
+        viewModel.getLocalCharacters()
+
+        assertEquals(viewModel.localCharacterState.value, characters)
     }
 
     @Test

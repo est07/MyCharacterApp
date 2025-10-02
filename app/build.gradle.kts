@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.ksp)
 }
 
@@ -53,6 +55,16 @@ android {
         buildConfig = true
         compose = true
     }
+
+    packaging {
+        resources {
+            resources {
+                excludes += "/META-INF/{AL2.0,LGPL2.1}"
+                merges += "META-INF/LICENSE.md"
+                merges += "META-INF/LICENSE-notice.md"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -73,10 +85,14 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.coil.compose)
     implementation(libs.koin.androidx.workmanager)
     implementation(libs.koin.androidx.navigation)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlin.serialization.json)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.androidx.room.runtime.android)

@@ -5,21 +5,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.mycharacterapp.domain.models.CharacterModel
 import com.example.mycharacterapp.domain.usecases.CharactersUseCase
 import com.example.mycharacterapp.presentation.states.CharactersStates
-import com.example.mycharacterapp.presentation.states.LocalCharactersState
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
-private const val TIMEOUT_MILLIS = 5_000L
 
 class CharactersViewModel(
     private val charactersUseCase: CharactersUseCase,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _charactersState =
@@ -27,6 +25,11 @@ class CharactersViewModel(
 
     val charactersState: StateFlow<CharactersStates>
         get() = _charactersState.asStateFlow()
+
+    private val _localCharacterState =
+        MutableStateFlow(emptyList<CharacterModel>())
+
+    val localCharacterState = _localCharacterState.asStateFlow()
 
     fun getCharacters() {
         viewModelScope.launch {
@@ -43,6 +46,16 @@ class CharactersViewModel(
                     } else {
                         _charactersState.value = CharactersStates.Error
                     }
+                }
+        }
+    }
+
+    fun getLocalCharacters() {
+        viewModelScope.launch {
+            charactersUseCase.getAllCharactersDB()
+                .flowOn(ioDispatcher)
+                .collect { list ->
+                    _localCharacterState.update { list }
                 }
         }
     }
