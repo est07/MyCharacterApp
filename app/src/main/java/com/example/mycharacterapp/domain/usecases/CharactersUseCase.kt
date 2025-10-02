@@ -12,28 +12,25 @@ class CharactersUseCase(
     private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    suspend fun getCharactersList() = withContext(ioDispatcher) {
+    suspend fun getCharacters() = withContext(ioDispatcher) {
         charactersRepository.getCharacters().onEach { charactersList ->
             charactersRepository.insertCharacters(charactersList.map { it.toDomain() })
         }
     }
 
-    suspend fun getAllCharactersDB() =
-        withContext(ioDispatcher) {
-            charactersRepository.getAllCharactersDB()
-        }
+    fun getAllCharactersDB() = charactersRepository.getAllCharactersDB()
 
-    suspend fun createCharacters(character: CharacterModel) =
+    suspend fun createCharacter(character: CharacterModel) =
         withContext(ioDispatcher) {
             charactersRepository.createCharacter(character)
         }
 
-    suspend fun updateCharacters(character: CharacterModel) =
+    suspend fun updateCharacter(character: CharacterModel) =
         withContext(ioDispatcher) {
             charactersRepository.updateCharacter(character)
         }
 
-    suspend fun deleteCharacters(character: CharacterModel) =
+    suspend fun deleteCharacter(character: CharacterModel) =
         withContext(ioDispatcher) {
             charactersRepository.deleteCharacter(character)
         }

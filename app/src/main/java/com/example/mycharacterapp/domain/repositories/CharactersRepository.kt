@@ -10,7 +10,7 @@ interface CharactersRepository {
 
     suspend fun insertCharacters(characters: List<CharacterEntity>)
 
-    suspend fun getAllCharactersDB(): Flow<List<CharacterModel>>
+    fun getAllCharactersDB(): Flow<List<CharacterModel>>
 
     suspend fun createCharacter(character: CharacterModel)
 

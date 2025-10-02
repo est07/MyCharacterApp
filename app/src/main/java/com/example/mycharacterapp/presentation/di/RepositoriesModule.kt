@@ -1,9 +1,9 @@
 package com.example.mycharacterapp.presentation.di
 
-import com.example.mycharacterapp.data.repositories.CitiesRepositoryImpl
+import com.example.mycharacterapp.data.repositories.CharactersRepositoryImpl
 import com.example.mycharacterapp.domain.repositories.CharactersRepository
 import org.koin.dsl.module
 
 val repositoriesModule = module {
-    factory<CharactersRepository> { CitiesRepositoryImpl(api = get(), charactersDao = get()) }
+    factory<CharactersRepository> { CharactersRepositoryImpl(api = get(), charactersDao = get()) }
 }

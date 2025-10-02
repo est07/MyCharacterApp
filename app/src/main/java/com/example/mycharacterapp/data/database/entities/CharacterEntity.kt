@@ -9,19 +9,20 @@ import com.example.mycharacterapp.domain.models.CharacterModel
 data class CharacterEntity(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "name") val name: String? = String(),
-    @ColumnInfo(name = "status") val status: String? = String(),
-    @ColumnInfo(name = "species") val species: String? = String(),
-    @ColumnInfo(name = "gender") val gender: String? = String(),
-    @ColumnInfo(name = "image") val image: String? = String(),
-    @ColumnInfo(name = "created") val created: String? = String()
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "status") val status: String,
+    @ColumnInfo(name = "species") val species: String,
+    @ColumnInfo(name = "gender") val gender: String,
+    @ColumnInfo(name = "image") val image: String,
+    @ColumnInfo(name = "created") val created: String
 )
 
 fun CharacterModel.toDomain() = CharacterEntity(
     id = id,
-    name = name,
-    status = status,
-    gender = gender,
-    image = image,
-    created = created
+    name = name?: String(),
+    status = status?: String(),
+    species = species?: String(),
+    gender = gender?: String(),
+    image = image?: String(),
+    created = created?: String()
 )

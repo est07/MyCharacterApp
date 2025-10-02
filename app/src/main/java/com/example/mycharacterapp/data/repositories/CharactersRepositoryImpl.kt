@@ -10,12 +10,12 @@ import com.example.mycharacterapp.domain.repositories.CharactersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 
-class CitiesRepositoryImpl(
+class CharactersRepositoryImpl(
     private val api: CharactersApi,
     private val charactersDao: CharactersDao
 ): CharactersRepository {
+
     override suspend fun getCharacters(): Flow<List<CharacterModel>> =
         flow {
             emit(api.getCharacters().results?.map { it.toDomain() } ?: emptyList())
@@ -25,7 +25,7 @@ class CitiesRepositoryImpl(
         charactersDao.insertAll(characters)
     }
 
-    override suspend fun getAllCharactersDB(): Flow<List<CharacterModel>> =
+    override fun getAllCharactersDB(): Flow<List<CharacterModel>> =
         charactersDao.getAllCharacters()
             .map { charactersDao -> charactersDao.map { it.toDomain() } }
 
