@@ -41,7 +41,7 @@ En el package de presentation se encuentran todos los componentes que son utiliz
 Todas las tareas desarrolladas en el proyecto se organizaron utilizando GitHub Projects y el board utilizado fue [Board](https://github.com/users/est07/projects/2)
 el cual estaba organizado en los diferentes estados en los que puede estar una tarea durante el desarrollo de un proyecto.
 
-![Board](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_board.png)
+![Board](https://github.com/est07/MyCharacterApp/blob/main/images/screenshot_board.png)
 
 ## Getting Started
 
@@ -50,7 +50,7 @@ el cual estaba organizado en los diferentes estados en los que puede estar una t
 3. En el archivo local.properties, agregar la URL base suministrada para la prueba, de la siguiente forma:
  `CHARACTER_URL_API=https://rickandmortyapi.com/api/`
 
-![LocalProperties](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_local_properties.png)
+![LocalProperties](https://github.com/est07/MyCharacterApp/blob/main/images/screenshot_local_properties.png)
 
 4. Build and run the application
 
