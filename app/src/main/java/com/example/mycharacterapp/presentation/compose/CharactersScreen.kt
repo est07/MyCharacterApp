@@ -41,6 +41,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
@@ -54,8 +55,8 @@ import com.example.mycharacterapp.presentation.viewmodels.CharactersViewModel
 import org.koin.androidx.compose.koinViewModel
 import kotlin.collections.mutableListOf
 
-private const val CHARACTERS_TOOLBAR_TAG = "CharacterToolbar"
-private const val CHARACTERS_TOOLBAR_TITLE_TAG = "CharacterToolbarTitle"
+private const val CHARACTERS_TOOLBAR_TAG = "CharactersToolbar"
+private const val CHARACTERS_TOOLBAR_TITLE_TAG = "CharactersToolbarTitle"
 private const val ADD_CHARACTER_FLOATING_ACTION_BUTTON_TAG = "AddCharacterFloatingActionButton"
 
 private const val CHARACTER_ITEM_TAG = "CharacterItem"
@@ -65,6 +66,7 @@ private const val CHARACTER_ITEM_NAME_TEXT_TAG = "CharacterItemNameText"
 private const val CHARACTER_ITEM_STATUS_TEXT_TAG = "CharacterItemStatusText"
 private const val CHARACTER_ITEM_DESCRIPTION_TEXT_TAG = "CharacterItemDescriptionText"
 
+private const val DEFAULT_LIST_INDEX = 0
 private const val DEFAULT_MAX_LINES = 1
 private const val DEFAULT_WEIGHT = 1f
 
@@ -79,15 +81,19 @@ fun CharactersRoute(
 
     CharactersScreen(
         characterModel = localCharacters,
-        navigateToEdit = navigateToEdit
+        navigateToEdit = navigateToEdit,
+        navigateToAdd = {
+            navigateToEdit(CharacterModel())
+        }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharactersScreen(
+private fun CharactersScreen(
     characterModel: List<CharacterModel>,
-    navigateToEdit: (CharacterModel) -> Unit
+    navigateToEdit: (CharacterModel) -> Unit,
+    navigateToAdd: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -112,7 +118,7 @@ fun CharactersScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {},
+                onClick = navigateToAdd,
                 containerColor = MaterialTheme.colorScheme.primary,
                 shape = MaterialTheme.shapes.extraLarge,
                 modifier = Modifier
@@ -160,7 +166,7 @@ fun CitiesList(
     ) {
         items(
             characterModel.size,
-            key = { characterModel[it].id },
+            key = { characterModel[it].id ?: DEFAULT_LIST_INDEX },
         ) {
             characterModel[it].let { character ->
                 CharacterItem(
@@ -173,7 +179,7 @@ fun CitiesList(
 }
 
 @Composable
-fun CharacterItem(
+private fun CharacterItem(
     characterModel: CharacterModel,
     onItemSelected: (CharacterModel) -> Unit
 ) {
@@ -216,7 +222,8 @@ fun CharacterItem(
                             R.string.character_item_content_description_character_image
                         ),
                         modifier = Modifier.size(dimensionResource(R.dimen.size_80dp)),
-                        contentScale = ContentScale.Crop
+                        contentScale = ContentScale.Crop,
+                        placeholder = painterResource(R.drawable.icon_outline_100)
                     )
                 }
             }
@@ -284,7 +291,8 @@ private fun CharactersRoutePreview() {
                 created = "created2"
             )
         ),
-        navigateToEdit = {}
+        navigateToEdit = {},
+        navigateToAdd = {}
     )
 }
 
@@ -299,7 +307,7 @@ private fun CityItemPreview() {
                 status = "status",
                 species = "species",
                 gender = "gender",
-                image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                image = "",
                 created = "created"
             ),
             onItemSelected = {}

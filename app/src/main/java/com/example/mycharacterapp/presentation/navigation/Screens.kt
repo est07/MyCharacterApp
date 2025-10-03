@@ -7,4 +7,4 @@ import kotlinx.serialization.Serializable
 object CharactersScreen
 
 @Serializable
-data class EditCharacter(val character: CharacterModel)
+data class EditCharacterScreen(val character: CharacterModel)

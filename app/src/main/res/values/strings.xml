@@ -8,6 +8,16 @@
     <string name="character_item.status">Estatus: %1$s</string>
     <string name="character_item.description">Genero: %1$s, Especie: %2$s</string>
 
+    <string name="character_view.name_text">Nombre*</string>
+    <string name="character_view.status_text">Estatus*</string>
+    <string name="character_view.gender_text">Genero*</string>
+    <string name="character_view.specie_text">Especie*</string>
+    <string name="character_view.required_fields_text">*Campos requeridos</string>
+
     <string name="characters_view.content_description.add_new_character">"Add new character"</string>
     <string name="character_item.content_description.character.image">CharacterImage</string>
+
+    <string name="character_view.content_description.add_character">"Add new character"</string>
+    <string name="character_view.content_description.edit_character">"Edit character"</string>
+    <string name="character_view.content_description.delete_character">"Delete character"</string>
 </resources>

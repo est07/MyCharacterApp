@@ -18,7 +18,7 @@ data class CharacterEntity(
 )
 
 fun CharacterModel.toDomain() = CharacterEntity(
-    id = id,
+    id = id?: 0,
     name = name?: String(),
     status = status?: String(),
     species = species?: String(),

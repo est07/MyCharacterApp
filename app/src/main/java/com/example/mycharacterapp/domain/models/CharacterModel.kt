@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class CharacterModel(
-    val id: Int,
+    val id: Int? = 0,
     var name: String? = String(),
     var status: String? = String(),
     var species: String? = String(),
@@ -21,6 +21,7 @@ fun CharactersResultsResponse.toDomain() = CharacterModel(
     id = id,
     name = name,
     status = status,
+    species = species,
     gender = gender,
     image = image,
     created = String()
@@ -30,6 +31,7 @@ fun CharacterEntity.toDomain() = CharacterModel(
     id = id,
     name = name,
     status = status,
+    species = species,
     gender = gender,
     image = image,
     created = created
