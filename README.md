@@ -50,7 +50,7 @@ el cual estaba organizado en los diferentes estados en los que puede estar una t
 3. En el archivo local.properties, agregar la URL base suministrada para la prueba, de la siguiente forma:
  `CHARACTER_URL_API=https://rickandmortyapi.com/api/`
 
-![LocalProperties](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_local.properties.png)
+![LocalProperties](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_local_properties.png)
 
 4. Build and run the application
 
