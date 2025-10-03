@@ -8,6 +8,8 @@
     <string name="character_item.status">Estatus: %1$s</string>
     <string name="character_item.description">Genero: %1$s, Especie: %2$s</string>
 
+    <string name="character_view.toolbar_edit_text">Editar Personaje</string>
+    <string name="character_view.toolbar_create_text">Crear Personaje</string>
     <string name="character_view.name_text">Nombre*</string>
     <string name="character_view.status_text">Estatus*</string>
     <string name="character_view.gender_text">Genero*</string>

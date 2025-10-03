@@ -69,6 +69,8 @@ private const val CHARACTER_VIEW_DELETE_BUTTON_TAG = "CharacterViewActionDeleteF
 private const val DEFAULT_CHARACTER_ID = 0
 private const val DEFAULT_MAX_LINES = 1
 private const val DEFAULT_IMAGE = "IMAGE"
+private const val DEFAULT_RANDOM_MIN_VALUE = 1
+private const val DEFAULT_RANDOM_MAX_VALUE = 9999
 
 @Composable
 fun EditCharacterRoute(
@@ -109,7 +111,10 @@ fun EditCharacterRoute(
 private fun generateRandomNumber(): Int {
     val calendar = Calendar.getInstance()
     val randomGenerator = Random(calendar.get(Calendar.MILLISECOND))
-    return randomGenerator.nextInt(1, 9999)
+    return randomGenerator.nextInt(
+        DEFAULT_RANDOM_MIN_VALUE,
+        DEFAULT_RANDOM_MAX_VALUE
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -120,6 +125,10 @@ private fun EditCharacterScreen(
     onActionCharacter: (CharacterModel) -> Unit,
     onDeleteCharacter: (CharacterModel) -> Unit
 ) {
+    var isEditCharacter by rememberSaveable {
+        mutableStateOf(characterModel.id != DEFAULT_CHARACTER_ID)
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -130,7 +139,13 @@ private fun EditCharacterScreen(
                 title = {
                     Text(
                         modifier = Modifier.testTag(CHARACTER_TOOLBAR_TITLE_TAG),
-                        text = stringResource(R.string.app_name),
+                        text = stringResource(
+                            if (isEditCharacter) {
+                                R.string.character_view_toolbar_edit_text
+                            } else {
+                                R.string.character_view_toolbar_create_text
+                            }
+                        ),
                         maxLines = DEFAULT_MAX_LINES
                     )
                 },
@@ -160,9 +175,7 @@ private fun EditCharacterScreen(
         ) {
 
             var characterData by remember { mutableStateOf(CharacterModel()) }
-            var isEditCharacter by rememberSaveable {
-                mutableStateOf(characterModel.id != DEFAULT_CHARACTER_ID)
-            }
+
 
             var isSaveCharacterEnable by rememberSaveable {
                 mutableStateOf(isEditCharacter)
