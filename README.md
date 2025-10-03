@@ -1,0 +1,54 @@
+# My Characters App
+
+Esta aplicación fue realizada con el objetivo de consultar una URL que contiene una lista de personajes con su información, la información
+se organiza para ofrecer una buena experiencia al usuario, además permite que el usuario pueda editar, eliminar, y crear nuevos personajes en el app.
+
+Para el desarrollo de la aplicación se utilizaron diferentes componentes como ViewModel, corrutinas para el manejo de hilos, Flow para
+la programación reactiva, Room para la base de datos local, Koin para la inyección de dependencias y la interfaz de usuario en Compose Android.
+
+## Using :
+
+- [Retrofit](http://square.github.io/retrofit/)
+
+- [Moshi](https://github.com/square/moshi)
+
+- [Room](https://developer.android.com/training/data-storage/room?hl=es-419)
+
+- [Coroutines](https://kotlinlang.org/docs/coroutines-basics.html)
+
+- [Flow](https://developer.android.com/kotlin/flow?hl=es-419)
+
+- [Koin](https://github.com/InsertKoinIO/koin)
+
+- [AndroidX](https://developer.android.com/jetpack/androidx)
+
+### Project structure 
+
+El proyecto fue realizado con el patrón de diseño de clean architecture por lo cual esta compuesto por tres package los cuales son data, domain,  y presentation.
+
+En el package de datos se encuentra el paquete de network que contiene los componentes para descargar desde una URL el archivo .json, en el package
+de database están los componentes para manejar todos los procesos y configuraciones en la base de datos local, y en el package de repositories se encuentran
+las clases que conectan la capa de dominio con la de datos.
+
+En el package de dominio se encuentran los componentes que permiten la comunicación entre esta capa y las de datos y la capa de presentación
+además de los datos que se intercambian entre estas capas, si existe una lógica de negocio también se manejaría en esta capa, debido a que la
+consulta a la URL para descargar el archivo .json y guardarlo en la base de datos es lógica de negocio esta tarea se maneja en un caso de uso,
+por lo tanto se tiene un package de usecases, en el package de repositories están las interfaces que conectan el dominio con la capa de datos
+y en la de models están las data class que se utilizan en las capas de dominio y presentación.
+
+En el package de presentation se encuentran todos los componentes que son utilizados para mostrar las vistas.
+
+## Getting Started
+
+1. Clonar el repositorio
+2. Abrir el proyecto en Android Studio
+3. En el archivo local.properties, agregar la URL base suministrada para la prueba, de la siguiente forma:
+ `CHARACTER_URL_API=https://rickandmortyapi.com/api/`
+5. Build and run the application
+
+## Resources:
+- https://rickandmortyapi.com/documentation/
+- https://developer.android.com/codelabs/basic-android-kotlin-compose-update-data-room?hl=es-419#0
+- https://m3.material.io/
+- https://developer.android.com/courses/pathways/jetpack-compose-for-android-developers-4?hl=es-419
+- https://mockk.io/
