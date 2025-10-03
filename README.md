@@ -38,13 +38,21 @@ y en la de models están las data class que se utilizan en las capas de dominio 
 
 En el package de presentation se encuentran todos los componentes que son utilizados para mostrar las vistas.
 
+Todas las tareas desarrolladas en el proyecto se organizaron utilizando GitHub Projects y el board utilizado fue [Board](https://github.com/users/est07/projects/2)
+el cual estaba organizado en los diferentes estados en los que puede estar una tarea durante el desarrollo de un proyecto.
+
+![Board](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_board.png)
+
 ## Getting Started
 
 1. Clonar el repositorio
 2. Abrir el proyecto en Android Studio
 3. En el archivo local.properties, agregar la URL base suministrada para la prueba, de la siguiente forma:
  `CHARACTER_URL_API=https://rickandmortyapi.com/api/`
-5. Build and run the application
+
+![LocalProperties](https://github.com/est07/MyCitiesSearch/blob/main/images/screenshot_local.properties.png)
+
+4. Build and run the application
 
 ## Resources:
 - https://rickandmortyapi.com/documentation/
