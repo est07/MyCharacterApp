@@ -21,12 +21,15 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -65,6 +68,7 @@ private const val CHARACTER_ITEM_IMAGE_TAG = "CharacterImageItem"
 private const val CHARACTER_ITEM_NAME_TEXT_TAG = "CharacterItemNameText"
 private const val CHARACTER_ITEM_STATUS_TEXT_TAG = "CharacterItemStatusText"
 private const val CHARACTER_ITEM_DESCRIPTION_TEXT_TAG = "CharacterItemDescriptionText"
+private const val CHARACTER_ITEM_FAVORITE_ICON_TAG = "CharacterItemFavoriteIcon"
 
 private const val DEFAULT_LIST_INDEX = 0
 private const val DEFAULT_MAX_LINES = 1
@@ -262,6 +266,22 @@ private fun CharacterItem(
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.Gray
                 )
+
+            }
+
+            IconButton(
+                onClick = {  },
+                modifier = Modifier.testTag(CHARACTER_ITEM_FAVORITE_ICON_TAG)
+            ) {
+                Icon(
+                    imageVector = if (characterModel.isFavorite?:false) {
+                        Icons.Filled.Favorite
+                    } else {
+                        Icons.Filled.FavoriteBorder
+                    },
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
             }
         }
     }
@@ -308,7 +328,8 @@ private fun CityItemPreview() {
                 species = "species",
                 gender = "gender",
                 image = "",
-                created = "created"
+                created = "created",
+                isFavorite = true
             ),
             onItemSelected = {}
         )

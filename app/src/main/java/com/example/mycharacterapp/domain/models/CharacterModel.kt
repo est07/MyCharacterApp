@@ -14,7 +14,8 @@ data class CharacterModel(
     var species: String? = String(),
     var gender: String? = String(),
     var image: String? = String(),
-    var created: String? = String()
+    var created: String? = String(),
+    var isFavorite: Boolean? = false
 ) : Parcelable
 
 fun CharactersResultsResponse.toDomain() = CharacterModel(
@@ -24,7 +25,8 @@ fun CharactersResultsResponse.toDomain() = CharacterModel(
     species = species,
     gender = gender,
     image = image,
-    created = String()
+    created = String(),
+    isFavorite = false
 )
 
 fun CharacterEntity.toDomain() = CharacterModel(
@@ -34,5 +36,6 @@ fun CharacterEntity.toDomain() = CharacterModel(
     species = species,
     gender = gender,
     image = image,
-    created = created
+    created = created,
+    isFavorite = isFavorite
 )

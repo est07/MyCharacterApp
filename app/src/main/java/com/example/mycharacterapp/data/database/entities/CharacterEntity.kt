@@ -14,7 +14,8 @@ data class CharacterEntity(
     @ColumnInfo(name = "species") val species: String,
     @ColumnInfo(name = "gender") val gender: String,
     @ColumnInfo(name = "image") val image: String,
-    @ColumnInfo(name = "created") val created: String
+    @ColumnInfo(name = "created") val created: String,
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean
 )
 
 fun CharacterModel.toDomain() = CharacterEntity(
@@ -24,5 +25,6 @@ fun CharacterModel.toDomain() = CharacterEntity(
     species = species?: String(),
     gender = gender?: String(),
     image = image?: String(),
-    created = created?: String()
+    created = created?: String(),
+    isFavorite = isFavorite?: false
 )

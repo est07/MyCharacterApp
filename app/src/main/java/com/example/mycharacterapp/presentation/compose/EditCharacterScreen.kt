@@ -15,6 +15,8 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -65,6 +67,7 @@ private const val CHARACTER_VIEW_SPECIES_FIELD_TAG = "CharacterViewSpeciesField"
 private const val CHARACTER_VIEW_REQUIRED_FIELD_TAG = "CharacterViewRequiredField"
 private const val CHARACTER_VIEW_ACTION_BUTTON_TAG = "CharacterViewActionButtonField"
 private const val CHARACTER_VIEW_DELETE_BUTTON_TAG = "CharacterViewActionDeleteField"
+private const val CHARACTER_VIEW_FAVORITE_BUTTON_TAG = "CharacterViewActionFavoriteField"
 
 private const val DEFAULT_CHARACTER_ID = 0
 private const val DEFAULT_MAX_LINES = 1
@@ -92,7 +95,8 @@ fun EditCharacterRoute(
                             gender = gender,
                             species = species,
                             image = DEFAULT_IMAGE,
-                            created = created
+                            created = created,
+                            isFavorite = isFavorite
                         )
                     )
                 } else {
@@ -176,6 +180,7 @@ private fun EditCharacterScreen(
 
             var characterData by remember { mutableStateOf(CharacterModel()) }
 
+            var isFavorite by rememberSaveable { mutableStateOf(characterModel.isFavorite)}
 
             var isSaveCharacterEnable by rememberSaveable {
                 mutableStateOf(isEditCharacter)
@@ -198,6 +203,24 @@ private fun EditCharacterScreen(
                         .testTag(CHARACTER_VIEW_IMAGE_TAG),
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(R.drawable.icon_outline_100)
+                )
+            }
+
+            IconButton(
+                modifier = Modifier.testTag(CHARACTER_VIEW_FAVORITE_BUTTON_TAG),
+                onClick = {
+                    isFavorite = isFavorite?.not()
+                    characterData.isFavorite = isFavorite
+                }
+            ) {
+                Icon(
+                    imageVector = if (isFavorite == true) {
+                        Icons.Filled.Favorite
+                    } else {
+                        Icons.Filled.FavoriteBorder
+                    },
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
 
@@ -417,7 +440,8 @@ private fun CharacterFormPreview() {
                 species = "species",
                 gender = "gender",
                 image = "",
-                created = "created"
+                created = "created",
+                isFavorite = false
             ),
         )
     }
